@@ -1,7 +1,7 @@
 package ui;
 
 //Represents a TVShow
-public class TVShow {
+public class TVShow implements Content {
     private int seasons;
     private int episodes;
     private String title;
@@ -37,13 +37,14 @@ public class TVShow {
     }
 
     //EFFECTS: returns the title of TV Show
+    @Override
     public String getTitle() {
-        System.out.println(title);
         return title;
     }
 
     //MODIFIES: this
     //EFFECTS: sets title of TV Show
+    @Override
     public void setTitle(String title) {
         System.out.println("Set title to" + title);
         this.title = title;

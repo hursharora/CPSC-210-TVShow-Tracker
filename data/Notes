@@ -1,0 +1,6 @@
+Declare interface, instantiate implementation:
+in ListOfContent.getMovieTVInput
+
+Have class that implements two interfaces:
+ListOfContent implements loadable and saveable
+
