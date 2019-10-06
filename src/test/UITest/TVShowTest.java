@@ -1,8 +1,9 @@
 package UITest;
 
+import model.ListOfContent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.TVShow;
+import model.TVShow;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,11 +18,15 @@ class TVShowTest {
     @BeforeEach
     public void runBefore() {
         show = new TVShow(TESTSHOW);
+        show2 = new TVShow(new ListOfContent(), TESTSHOW2, "2011", 9);
+        show3  = new TVShow(new ListOfContent(), TESTSHOW3, "2011");
     }
 
     @Test
     public void testGetTitle() {
         assertEquals(show.getTitle(), TESTSHOW);
+        assertEquals(show2.getTitle(), TESTSHOW2);
+        assertEquals(show3.getTitle(), TESTSHOW3);
     }
 
     @Test

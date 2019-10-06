@@ -2,10 +2,10 @@ package UITest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.Content;
-import ui.ListOfContent;
-import ui.Movie;
-import ui.TVShow;
+import model.Content;
+import model.ListOfContent;
+import model.Movie;
+import model.TVShow;
 
 import java.io.IOException;
 import java.util.ArrayList;

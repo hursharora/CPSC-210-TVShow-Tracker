@@ -1,7 +1,8 @@
 package ui;
 
+import model.ListOfContent;
+
 import java.io.IOException;
-import java.util.List;
 
 public class Main {
 
@@ -21,7 +22,9 @@ public class Main {
 //        listOfTVShows.insert(firstTVShow);
 //        listOfMovies.insert(firstMovie);
 
-        listOfTVShows.inputContent("TVShow");
+        listOfTVShows.inputContent(ListOfContent.TV_SHOW);
+        listOfTVShows.inputContent(ListOfContent.MOVIE);
+
 
 
     }
