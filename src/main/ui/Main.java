@@ -8,12 +8,22 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         ListOfContent listOfTVShows = new ListOfContent();
-        listOfTVShows.load(ListOfContent.TV_SHOW);
+        try {
+            listOfTVShows.load(ListOfContent.TV_SHOW);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Shows not loaded");
+        }
         ListOfContent listOfMovies = new ListOfContent();
-        listOfMovies.load(ListOfContent.MOVIE);
+        try {
+            listOfMovies.load(ListOfContent.MOVIE);
+        } catch (IOException e) {
+            System.out.println("Movies not loaded");
+            e.printStackTrace();
+        }
 
 //        TVShow firstTVShow = new TVShow(3, 30, "Stranger Things", "9/21/2016", 5);
 //        TVShow firstTVShow = new TVShow("Stranger Things");

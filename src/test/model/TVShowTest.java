@@ -1,9 +1,7 @@
-package UITest;
+package model;
 
-import model.ListOfContent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.TVShow;
 
 import static org.junit.jupiter.api.Assertions.*;
 

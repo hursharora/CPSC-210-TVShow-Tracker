@@ -25,4 +25,13 @@ public abstract class Content {
     public void toggleWatched() {
         watched = !watched;
     }
+
+    public void rate(int rating) {
+        if (rating <= 10 && rating >= 0) {
+            this.rating = rating;
+        } else {
+            System.out.println("Invalid Rating");
+        }
+
+    }
 }

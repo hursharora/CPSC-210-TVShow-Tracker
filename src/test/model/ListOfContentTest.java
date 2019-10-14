@@ -1,18 +1,14 @@
-package UITest;
+package model;
 
+import model.exceptions.InvalidContentTypeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.Content;
-import model.ListOfContent;
-import model.Movie;
-import model.TVShow;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ListOfContentTest {
 
@@ -96,7 +92,7 @@ public class ListOfContentTest {
     }
 
     @Test
-    public void testSaveLoadTV() throws IOException {
+    public void testSaveLoadTV() throws IOException, InvalidContentTypeException {
         listOfTVShows.insert(show);
         listOfTVShows.insert(show2);
 
@@ -106,7 +102,7 @@ public class ListOfContentTest {
     }
 
     @Test
-    public void testSaveLoadMovies() throws IOException {
+    public void testSaveLoadMovies() throws IOException, InvalidContentTypeException {
         listOfMovies.insert(movie);
         listOfMovies.insert(movie2);
 
@@ -115,5 +111,29 @@ public class ListOfContentTest {
         assertEquals(listOfMovies.size(), testList.size());
     }
 
+    @Test
+    public void testSaveExpectNoInvalidContentException() {
+        try {
+            listOfMovies.save(ListOfContent.MOVIE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidContentTypeException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void testSaveExpectInvalidContentException() {
+        try {
+            listOfMovies.save("Test");
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (InvalidContentTypeException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

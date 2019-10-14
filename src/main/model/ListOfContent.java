@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.InvalidContentTypeException;
 import ui.ListOfContentScannerInput;
 
 import java.io.IOException;
@@ -70,7 +71,7 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
             for (String s : loadedList) {
                 listOfContent.add(new TVShow(s));
             }
-        } else {
+        } else if (type.equals(MOVIE)) {
             path = Paths.get("data/MoviesSave");
             List<String> loadedList = Files.readAllLines(path);
             for (String s : loadedList) {
@@ -82,12 +83,16 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
     @Override
     //REQUIRES: save file and given type must be "Movie" or "TVShow"
     //EFFECTS: saves TVShows/movies to save file from List
-    public void save(String type) throws IOException {
+    public void save(String type) throws IOException, InvalidContentTypeException {
         Path path;
         if (type.equals(TV_SHOW)) {
             path = Paths.get("data/TVShowsSave");
-        } else {
+        } else if (type.equals(MOVIE)) {
             path = Paths.get("data/MoviesSave");
+        } else if (type.equals("Temp")) {
+            path = Paths.get("data/TempSave");
+        } else {
+            throw new InvalidContentTypeException();
         }
         StringBuilder toWrite = new StringBuilder();
         for (Content content: listOfContent) {

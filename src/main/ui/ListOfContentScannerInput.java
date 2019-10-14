@@ -4,8 +4,12 @@ import model.Content;
 import model.ListOfContent;
 import model.Movie;
 import model.TVShow;
+import model.exceptions.InvalidContentTypeException;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +21,7 @@ public abstract class ListOfContentScannerInput {
     //MODIFIES: this
     //EFFECTS: asks user if they want to input given content type, if
     //inputted will add content to this list
-    public void inputContent(String type) throws IOException {
+    public void inputContent(String type) {
         boolean entering = true;
         Scanner in = new Scanner(System.in);
         String input;
@@ -28,15 +32,29 @@ public abstract class ListOfContentScannerInput {
                 listOfContent.add(getMovieTVInput(type));
             } else if (input.equals("Q")) {
                 entering = false;
-                save(type);
+                trySaving(type);
             } else {
                 System.out.println("Invalid Input");
             }
         }
-
     }
 
-    protected abstract void save(String type) throws IOException;
+    private void trySaving(String type) {
+        try {
+            save(type);
+        } catch (InvalidContentTypeException e) {
+            System.out.println("Not Saved, Invalid content type!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("File not found, created new file");
+        } finally {
+            System.out.println("Exceptions handled");
+        }
+    }
+
+
+    protected abstract void save(String type) throws IOException, InvalidContentTypeException;
 
     //REQUIRES: given type must be "Movie" or "TVShow"
     //EFFECTS: Helper method for inputContent, lets user enter Show/Movie
