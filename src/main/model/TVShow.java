@@ -1,8 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 //Represents a TVShow
 public class TVShow extends Content {
     private ListOfContent listOfSeasons;
+    private Map<Season, List<Content>> episodes = new HashMap<>();
+
 
     //MODIFIES: this
     //EFFECTS: creates TV show with a title
@@ -37,6 +44,19 @@ public class TVShow extends Content {
             listOfSeasons.getContent(i).toggleWatched();
         }
 
+    }
+
+    public List<Content> getEpisodes(Season s) {
+        return episodes.get(s);
+    }
+
+    public void addSeason(Season season) {
+        episodes.put(season, new ArrayList<>());
+    }
+
+    public void addEpisode(Season season, Episode episode) {
+        List<Content> seasonList = episodes.get(season);
+        seasonList.add(episode);
     }
 
 

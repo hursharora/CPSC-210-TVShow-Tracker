@@ -47,7 +47,7 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
     //no repetitions
     public void merge(List<Content> listOfContent) {
         for (Content content:listOfContent) {
-            if (!this.listOfContent.contains(content)) {
+            if (!contains(content)) {
                 this.listOfContent.add(content);
             }
         }

@@ -1,11 +1,21 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public abstract class Content {
 
     protected String title;
     protected String release;
     protected boolean watched;
-    protected int rating;
+    protected int rating = -1;
+
+    public int getRating() {
+        return rating;
+    }
+
+    protected List<Genre> genreList = new ArrayList<>();
 
     public boolean isWatched() {
         return watched;
@@ -34,4 +44,23 @@ public abstract class Content {
         }
 
     }
+
+    public void addGenre(Genre genre) {
+        if (!genreList.contains(genre)) {
+            genreList.add(genre);
+            genre.addContent(this);
+        }
+    }
+
+    public void removeGenre(Genre genre) {
+        if (genreList.contains(genre)) {
+            genreList.remove(genre);
+            genre.removeContent(this);
+        }
+    }
+
+    public List<Genre> getGenres() {
+        return genreList;
+    }
+
 }
