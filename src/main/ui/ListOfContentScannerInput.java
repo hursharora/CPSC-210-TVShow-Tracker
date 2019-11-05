@@ -1,15 +1,9 @@
 package ui;
 
-import model.Content;
-import model.ListOfContent;
-import model.Movie;
-import model.TVShow;
+import model.*;
 import model.exceptions.InvalidContentTypeException;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -60,16 +54,9 @@ public abstract class ListOfContentScannerInput {
     //EFFECTS: Helper method for inputContent, lets user enter Show/Movie
     //name via scanner
     private Content getMovieTVInput(String type) {
+        System.out.println("Enter " + type + " name: ");
         Scanner in = new Scanner(System.in);
-        Content returnedContent;
-        if (type.equals(ListOfContent.TV_SHOW)) {
-            System.out.println("Enter TV show name:");
-            returnedContent = new TVShow(in.nextLine());
-        } else {
-            System.out.println("Enter Movie name:");
-            returnedContent = new Movie(in.nextLine());
-        }
-        return returnedContent;
+        return ContentFactory.getContent(type, in.nextLine());
     }
 
 

@@ -59,47 +59,43 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
         return listOfContent.get(index);
     }
 
+
     @Override
     //REQUIRES: TVShow save file and given type must be "Movie" or "TVShow"
     //MODIFIES: this
     //EFFECTS: loads TVShows/movies in save file to List
-    public void load(String type) throws IOException {
-        Path path;
-        if (type.equals(TV_SHOW)) {
-            path = Paths.get("data/TVShowsSave");
-            List<String> loadedList = Files.readAllLines(path);
-            for (String s : loadedList) {
-                listOfContent.add(new TVShow(s));
-            }
-        } else if (type.equals(MOVIE)) {
-            path = Paths.get("data/MoviesSave");
-            List<String> loadedList = Files.readAllLines(path);
-            for (String s : loadedList) {
-                listOfContent.add(new Movie(s));
-            }
+    public void load(String type) throws IOException, InvalidContentTypeException {
+        Path path = getPath(type);
+        List<String> loadedList = Files.readAllLines(path);
+        for (String s : loadedList) {
+            listOfContent.add(ContentFactory.getContent(type, s));
         }
+
     }
 
     @Override
     //REQUIRES: save file and given type must be "Movie" or "TVShow"
     //EFFECTS: saves TVShows/movies to save file from List
     public void save(String type) throws IOException, InvalidContentTypeException {
-        Path path;
-        if (type.equals(TV_SHOW)) {
-            path = Paths.get("data/TVShowsSave");
-        } else if (type.equals(MOVIE)) {
-            path = Paths.get("data/MoviesSave");
-        } else if (type.equals("Temp")) {
-            path = Paths.get("data/TempSave");
-        } else {
-            throw new InvalidContentTypeException();
-        }
+        Path path = getPath(type);
         StringBuilder toWrite = new StringBuilder();
         for (Content content: listOfContent) {
             toWrite.append(content.getTitle());
             toWrite.append(System.lineSeparator());
         }
         Files.write(path, toWrite.toString().getBytes());
+    }
+
+    private Path getPath(String type) throws InvalidContentTypeException {
+        Path path;
+        if (type.equals(TV_SHOW)) {
+            path = Paths.get("data/TVShowsSave");
+        } else if (type.equals(MOVIE)) {
+            path = Paths.get("data/MoviesSave");
+        } else {
+            throw new InvalidContentTypeException();
+        }
+        return path;
     }
 
 

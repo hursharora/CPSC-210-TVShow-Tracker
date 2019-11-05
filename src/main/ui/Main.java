@@ -1,6 +1,7 @@
 package ui;
 
 import model.ListOfContent;
+import model.exceptions.InvalidContentTypeException;
 
 import java.io.IOException;
 
@@ -13,14 +14,14 @@ public class Main {
         ListOfContent listOfTVShows = new ListOfContent();
         try {
             listOfTVShows.load(ListOfContent.TV_SHOW);
-        } catch (IOException e) {
+        } catch (IOException | InvalidContentTypeException e) {
             e.printStackTrace();
             System.out.println("Shows not loaded");
         }
         ListOfContent listOfMovies = new ListOfContent();
         try {
             listOfMovies.load(ListOfContent.MOVIE);
-        } catch (IOException e) {
+        } catch (IOException | InvalidContentTypeException e) {
             System.out.println("Movies not loaded");
             e.printStackTrace();
         }
@@ -33,7 +34,7 @@ public class Main {
 //        listOfMovies.insert(firstMovie);
 
         listOfTVShows.inputContent(ListOfContent.TV_SHOW);
-        listOfTVShows.inputContent(ListOfContent.MOVIE);
+        listOfMovies.inputContent(ListOfContent.MOVIE);
 
 
 
