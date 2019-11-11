@@ -2,14 +2,20 @@ package ui;
 
 import model.ListOfContent;
 import model.exceptions.InvalidContentTypeException;
+import network.TVShowLoader;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Main {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        TVShowLoader tvShowLoader = new TVShowLoader();
+        System.out.println(tvShowLoader.makeHttpRequest(new URL("https://api.thetvdb.com/login")));
+
 
         ListOfContent listOfTVShows = new ListOfContent();
         try {
