@@ -26,18 +26,6 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
         return listOfContent.size();
     }
 
-    //MODIFIES: this
-    //EFFECTS: merges this list of shows with given list of shows
-    //no repetitions
-    public void merge(List<Content> listOfContent) {
-        for (Content content:listOfContent) {
-            if (!contains(content)) {
-                this.listOfContent.add(content);
-            }
-        }
-        System.out.println("Added content to list!");
-
-    }
 
     public Content getContent(int index) {
         return listOfContent.get(index);

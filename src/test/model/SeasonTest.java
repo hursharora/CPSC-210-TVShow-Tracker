@@ -17,4 +17,13 @@ public class SeasonTest {
 
     }
 
+    @Test
+    void toggleWatched() {
+        Season testSeason = new Season(1);
+        Season testSeason2 = new Season(1);
+        testSeason.addOffShoot(testSeason2);
+        testSeason.getOffShoots();
+        testSeason.toggleWatched();
+    }
+
 }

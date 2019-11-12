@@ -13,6 +13,7 @@ class TVShowTest {
     private TVShow show;
     private TVShow show2;
     private TVShow show3;
+    private TVShow show4;
     private static final String TESTSHOW = "Test Title";
     private static final String TESTSHOW2 = "Test Title2";
     private static final String TESTSHOW3 = "Test Title3";
@@ -22,6 +23,7 @@ class TVShowTest {
         show = new TVShow(TESTSHOW);
         show2 = new TVShow(TESTSHOW2, "2011", 9);
         show3  = new TVShow(TESTSHOW3, "2011");
+        show4 = new TVShow("Rick and Morty");
     }
 
     @Test
@@ -87,6 +89,11 @@ class TVShowTest {
     void testToggleWatched() {
         show3.toggleWatched();
         assertTrue(show3.isWatched());
+    }
+
+    @Test
+    void testUpdate() {
+        show4.update(null, show4);
     }
 
 

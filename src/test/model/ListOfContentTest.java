@@ -68,28 +68,6 @@ public class ListOfContentTest {
 
     }
 
-    @Test
-    public void testMergeDuplicate() {
-        listOfTVShows.insert(show);
-        List<Content> testList = new ArrayList<>();
-        testList.add(show);
-        listOfTVShows.merge(testList);
-
-        assertEquals(listOfTVShows.size(), 1);
-        assertTrue(listOfTVShows.contains(show));
-    }
-
-    @Test
-    public void testMerge() {
-        listOfTVShows.insert(show);
-        List<Content> testList = new ArrayList<>();
-        testList.add(show2);
-        listOfTVShows.merge(testList);
-
-        assertEquals(listOfTVShows.size(), 2);
-        assertTrue(listOfTVShows.contains(show));
-        assertTrue(listOfTVShows.contains(show2));
-    }
 
     @Test
     public void testSaveLoadTV() throws IOException, InvalidContentTypeException {

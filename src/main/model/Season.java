@@ -50,4 +50,12 @@ public class Season extends Content {
             c.toggleWatched();
         }
     }
+
+    public void addOffShoot(Content c) {
+        offshoots.add(c);
+    }
+
+    public List<Content> getOffShoots() {
+        return offshoots;
+    }
 }
