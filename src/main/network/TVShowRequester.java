@@ -2,10 +2,8 @@ package network;
 
 import model.exceptions.ShowNotFoundException;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 public class TVShowRequester extends HttpRequester {
@@ -16,14 +14,10 @@ public class TVShowRequester extends HttpRequester {
     }
 
     //EFFECTS: returns json response from TVDB of searching a tv show
-    public String searchShow(String query) throws IOException {
+    public String searchShow(String query) throws IOException, ShowNotFoundException {
         String urlReadyQuery = query.replaceAll("\\s+", "+");
-        try {
-            return super.makeHttpRequest("https://api.thetvdb.com/search/series?name=" + urlReadyQuery);
-        } catch (ShowNotFoundException e) {
-            System.out.println("Show not found!");
-            return null;
-        }
+        return super.makeHttpRequest("https://api.thetvdb.com/search/series?name=" + urlReadyQuery);
+
     }
 
     public String showEpisodeSummary(long id) throws IOException, ShowNotFoundException {
