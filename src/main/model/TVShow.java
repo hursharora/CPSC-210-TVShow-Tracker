@@ -1,12 +1,15 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import model.exceptions.ShowNotFoundException;
+import network.ShowInfoGetter;
+
+import java.io.IOException;
+import java.util.*;
 
 //Represents a TVShow
 public class TVShow extends Content {
+    private int numEpisodes;
+    private long tvdbID;
     private List<Season> listOfSeasons;
     private Map<Season, List<Content>> episodes = new HashMap<>();
 
@@ -41,8 +44,8 @@ public class TVShow extends Content {
     @Override
     public void toggleWatched() {
         super.toggleWatched();
-        for (Season listOfSeason : listOfSeasons) {
-            listOfSeason.toggleWatched();
+        for (Season s : listOfSeasons) {
+            s.toggleWatched();
         }
 
     }
@@ -61,10 +64,26 @@ public class TVShow extends Content {
     }
 
 
+    /**
+     * This method is called whenever the observed object is changed. An
+     * application calls an <tt>Observable</tt> object's
+     * <code>notifyObservers</code> method to have all the object's
+     * observers notified of the change.
+     *
+     * @param o   the observable object.
+     * @param arg an argument passed to the <code>notifyObservers</code>
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        try {
+            ((TVShow)arg).tvdbID = ShowInfoGetter.getShowTVDbID(title);
+            ((TVShow)arg).release = ShowInfoGetter.getFirstAirDate(tvdbID);
+            ((TVShow)arg).numEpisodes = ShowInfoGetter.getNumEpisodes(tvdbID);
+            ((TVShow)arg).rate(ShowInfoGetter.getRating(tvdbID));
+            System.out.println(tvdbID + release + numEpisodes + rating);
 
-
-
-
-
-
+        } catch (IOException | ShowNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

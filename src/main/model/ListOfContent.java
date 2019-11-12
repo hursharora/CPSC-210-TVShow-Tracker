@@ -21,22 +21,6 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
         listOfContent = new ArrayList<>();
     }
 
-    //MODIFIES: this
-    //EFFECTS: TV Show in is added to the list if not already in list
-    public void insert(Content in) {
-        System.out.println("Added \"" + in.getTitle() + "\" to list.");
-        if (!contains(in)) {
-            listOfContent.add(in);
-        } else {
-            System.out.println("TV show already in list");
-        }
-    }
-
-    //EFFECTS: Returns true if TVShow is in the list, false otherwise
-    public boolean contains(Content in) {
-        return listOfContent.contains(in);
-    }
-
     //EFFECTS: Returns number of items in TV show list
     public int size() {
         return listOfContent.size();

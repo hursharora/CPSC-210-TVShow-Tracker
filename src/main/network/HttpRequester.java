@@ -6,12 +6,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import com.google.gson.JsonObject;
+import model.exceptions.ShowNotFoundException;
 
 
-public class TVShowLoader {
+public class HttpRequester {
+
+    public String makeHttpRequest(String url) throws IOException, ShowNotFoundException {
+        return makeHttpRequest(new URL(url));
+    }
 
 
-    public String makeHttpRequest(URL url) throws IOException {
+    protected String makeHttpRequest(URL url) throws IOException, ShowNotFoundException {
         String jsonResponse = "";
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
@@ -47,7 +52,7 @@ public class TVShowLoader {
 
     }
 
-    private HttpURLConnection getURlConnection(URL url) throws IOException {
+    protected HttpURLConnection getURlConnection(URL url) throws IOException, ShowNotFoundException {
         HttpURLConnection urlConnection;
         urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("POST");
@@ -68,13 +73,6 @@ public class TVShowLoader {
         authJson.addProperty("apikey", "HDQUM3I93ZPRH9M3");
         return authJson.toString();
     }
-
-
-
-
-
-
-
 
 
 }

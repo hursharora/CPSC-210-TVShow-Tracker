@@ -2,20 +2,19 @@ package ui;
 
 import model.ListOfContent;
 import model.exceptions.InvalidContentTypeException;
-import network.TVShowLoader;
+import model.exceptions.ShowNotFoundException;
+import network.ShowInfoGetter;
+import network.TVDbAuthorization;
+import network.TVShowRequester;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class Main {
 
 
 
-    public static void main(String[] args) throws IOException {
-        TVShowLoader tvShowLoader = new TVShowLoader();
-        System.out.println(tvShowLoader.makeHttpRequest(new URL("https://api.thetvdb.com/login")));
-
+    public static void main(String[] args) throws IOException, ShowNotFoundException {
+        //System.out.println(ShowInfoGetter.getShowTVDbID("Rick and Morty"));
 
         ListOfContent listOfTVShows = new ListOfContent();
         try {

@@ -5,9 +5,10 @@ import model.exceptions.InvalidContentTypeException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Observable;
 import java.util.Scanner;
 
-public abstract class ListOfContentScannerInput {
+public abstract class ListOfContentScannerInput extends Observable {
 
     protected List<Content> listOfContent;
 
@@ -23,7 +24,7 @@ public abstract class ListOfContentScannerInput {
             System.out.println("Enter \"N\" to input a new " + type + " or \"Q\" to save and quit:");
             input = in.nextLine();
             if (input.equals("N")) {
-                listOfContent.add(getMovieTVInput(type));
+                insert(getMovieTVInput(type));
             } else if (input.equals("Q")) {
                 entering = false;
                 trySaving(type);
@@ -47,6 +48,25 @@ public abstract class ListOfContentScannerInput {
         }
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: TV Show in is added to the list if not already in list
+    public void insert(Content in) {
+        System.out.println("Added \"" + in.getTitle() + "\" to list.");
+        if (!contains(in)) {
+            addObserver(in);
+            setChanged();
+            notifyObservers(in);
+            listOfContent.add(in);
+        } else {
+            System.out.println("TV show already in list");
+        }
+    }
+
+    //EFFECTS: Returns true if TVShow is in the list, false otherwise
+    public boolean contains(Content in) {
+        return listOfContent.contains(in);
+    }
 
     protected abstract void save(String type) throws IOException, InvalidContentTypeException;
 
