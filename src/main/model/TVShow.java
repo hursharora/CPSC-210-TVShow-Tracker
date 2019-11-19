@@ -12,6 +12,7 @@ public class TVShow extends Content {
     private long tvdbID;
     private List<Season> listOfSeasons;
     private Map<Season, List<Content>> episodes = new HashMap<>();
+    private String posterURL;
 
 
     //MODIFIES: this
@@ -77,10 +78,11 @@ public class TVShow extends Content {
     public void update(Observable o, Object arg) {
         try {
             ((TVShow)arg).tvdbID = ShowInfoGetter.getShowTVDbID(title);
+            ((TVShow)arg).posterURL = ShowInfoGetter.getImageURL(tvdbID);
             ((TVShow)arg).release = ShowInfoGetter.getFirstAirDate(tvdbID);
             ((TVShow)arg).numEpisodes = ShowInfoGetter.getNumEpisodes(tvdbID);
             ((TVShow)arg).rate(ShowInfoGetter.getRating(tvdbID));
-            System.out.println(tvdbID + release + numEpisodes + rating);
+            System.out.println(tvdbID + " " + release + " " + numEpisodes + " " + rating + " " + posterURL);
 
         } catch (IOException | ShowNotFoundException e) {
             e.printStackTrace();

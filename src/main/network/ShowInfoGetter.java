@@ -47,4 +47,16 @@ public class ShowInfoGetter {
         return objData.get("siteRating").getAsInt();
     }
 
+    public static String getImageURL(long tvdbID) throws IOException, ShowNotFoundException {
+        String imagePrefix = "https://artworks.thetvdb.com/banners/";
+        TVShowRequester tvShowRequester = new TVShowRequester();
+        String imageJson = tvShowRequester.showPosters(tvdbID);
+        JsonObject obj = new Gson().fromJson(imageJson, JsonObject.class);
+        JsonArray objArray = obj.get("data").getAsJsonArray();
+        JsonObject firstPoster = objArray.get(0).getAsJsonObject();
+        System.out.println(firstPoster.toString());
+        return imagePrefix + firstPoster.get("fileName").getAsString();
+    }
+
+
 }

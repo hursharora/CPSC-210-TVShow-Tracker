@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class TVShowRequester extends HttpRequester {
 
-    private String authToken = TVDbAuthorization.parseForAuthToken();
+    private TVDbAuthorization tvDbAuthorization = new TVDbAuthorization();
 
     public TVShowRequester() throws IOException, ShowNotFoundException {
     }
@@ -30,6 +30,11 @@ public class TVShowRequester extends HttpRequester {
         return super.makeHttpRequest(urlReadyQuery);
     }
 
+    public String showPosters(long id) throws IOException, ShowNotFoundException {
+        String urlReadyQuery = "https://api.thetvdb.com/series/<id>/images/query?keyType=poster".replaceAll("<id>", String.valueOf(id));
+        return super.makeHttpRequest(urlReadyQuery);
+    }
+
     @Override
     protected HttpURLConnection getURlConnection(URL url) throws IOException, ShowNotFoundException {
         HttpURLConnection urlConnection;
@@ -38,7 +43,7 @@ public class TVShowRequester extends HttpRequester {
         urlConnection.setDoOutput(true);
         urlConnection.setReadTimeout(10000);
         urlConnection.setConnectTimeout(15000);
-        urlConnection.setRequestProperty("Authorization", "Bearer " + authToken);
+        urlConnection.setRequestProperty("Authorization", "Bearer " + tvDbAuthorization.getAuthToken());
         urlConnection.connect();
         if (urlConnection.getResponseCode() == 404) {
             throw new ShowNotFoundException();
