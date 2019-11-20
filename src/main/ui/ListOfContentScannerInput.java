@@ -1,14 +1,10 @@
 package ui;
 
-import model.*;
-import model.exceptions.InvalidContentTypeException;
+import model.Content;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Observable;
-import java.util.Scanner;
 
-public abstract class ListOfContentScannerInput extends Observable {
+public abstract class ListOfContentScannerInput implements Iterable<Content> {
 
     protected List<Content> listOfContent;
 
@@ -16,37 +12,37 @@ public abstract class ListOfContentScannerInput extends Observable {
     //MODIFIES: this
     //EFFECTS: asks user if they want to input given content type, if
     //inputted will add content to this list
-    public void inputContent(String type) {
-        boolean entering = true;
-        Scanner in = new Scanner(System.in);
-        String input;
-        while (entering) {
-            System.out.println("Enter \"N\" to input a new " + type + " or \"Q\" to save and quit:");
-            input = in.nextLine();
-            if (input.equals("N")) {
-                insert(getMovieTVInput(type));
-            } else if (input.equals("Q")) {
-                entering = false;
-                trySaving(type);
-            } else {
-                System.out.println("Invalid Input");
-            }
-        }
-    }
+//    public void inputContent(String type) {
+//        boolean entering = true;
+//        Scanner in = new Scanner(System.in);
+//        String input;
+//        while (entering) {
+//            System.out.println("Enter \"N\" to input a new " + type + " or \"Q\" to save and quit:");
+//            input = in.nextLine();
+//            if (input.equals("N")) {
+//                insert(getMovieTVInput(type));
+//            } else if (input.equals("Q")) {
+//                entering = false;
+//                trySaving(type);
+//            } else {
+//                System.out.println("Invalid Input");
+//            }
+//        }
+//    }
 
-    private void trySaving(String type) {
-        try {
-            save(type);
-        } catch (InvalidContentTypeException e) {
-            System.out.println("Not Saved, Invalid content type!");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("File not found, created new file");
-        } finally {
-            System.out.println("Exceptions handled");
-        }
-    }
+//    private void trySaving(String type) {
+//        try {
+//            save(type);
+//        } catch (InvalidContentTypeException e) {
+//            System.out.println("Not Saved, Invalid content type!");
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("File not found, created new file");
+//        } finally {
+//            System.out.println("Exceptions handled");
+//        }
+//    }
 
 
     //MODIFIES: this
@@ -54,9 +50,6 @@ public abstract class ListOfContentScannerInput extends Observable {
     public void insert(Content in) {
         System.out.println("Added \"" + in.getTitle() + "\" to list.");
         if (!contains(in)) {
-            addObserver(in);
-            setChanged();
-            notifyObservers(in);
             listOfContent.add(in);
         } else {
             System.out.println("TV show already in list");
@@ -68,16 +61,15 @@ public abstract class ListOfContentScannerInput extends Observable {
         return listOfContent.contains(in);
     }
 
-    protected abstract void save(String type) throws IOException, InvalidContentTypeException;
 
     //REQUIRES: given type must be "Movie" or "TVShow"
     //EFFECTS: Helper method for inputContent, lets user enter Show/Movie
     //name via scanner
-    private Content getMovieTVInput(String type) {
-        System.out.println("Enter " + type + " name: ");
-        Scanner in = new Scanner(System.in);
-        return ContentFactory.getContent(type, in.nextLine());
-    }
+//    private Content getMovieTVInput(String type) {
+//        System.out.println("Enter " + type + " name: ");
+//        Scanner in = new Scanner(System.in);
+//        return ContentFactory.getContent(type, in.nextLine());
+//    }
 
 
 }

@@ -1,17 +1,23 @@
 package model;
 
-import model.exceptions.ShowNotFoundException;
-import network.ShowInfoGetter;
 
-import java.io.IOException;
 import java.util.*;
 
 //Represents a TVShow
 public class TVShow extends Content {
+
+
     private int numEpisodes;
     private long tvdbID;
     private List<Season> listOfSeasons;
     private Map<Season, List<Content>> episodes = new HashMap<>();
+
+
+
+    private String releaseDate;
+
+
+
     private String posterURL;
 
 
@@ -42,6 +48,16 @@ public class TVShow extends Content {
         System.out.println("Created new TV show titled: " + title);
     }
 
+    public TVShow(String title, String firstAired, int rating, long id, int numEpisodes, String posterURL) {
+        listOfSeasons = new ArrayList<>();
+        this.title = title;
+        this.releaseDate = firstAired;
+        this.rating = rating;
+        this.tvdbID = id;
+        this.numEpisodes = numEpisodes;
+        this.posterURL = posterURL;
+    }
+
     @Override
     public void toggleWatched() {
         super.toggleWatched();
@@ -64,28 +80,22 @@ public class TVShow extends Content {
         seasonList.add(episode);
     }
 
-
-    /**
-     * This method is called whenever the observed object is changed. An
-     * application calls an <tt>Observable</tt> object's
-     * <code>notifyObservers</code> method to have all the object's
-     * observers notified of the change.
-     *
-     * @param o   the observable object.
-     * @param arg an argument passed to the <code>notifyObservers</code>
-     */
-    @Override
-    public void update(Observable o, Object arg) {
-        try {
-            ((TVShow)arg).tvdbID = ShowInfoGetter.getShowTVDbID(title);
-            ((TVShow)arg).posterURL = ShowInfoGetter.getImageURL(tvdbID);
-            ((TVShow)arg).release = ShowInfoGetter.getFirstAirDate(tvdbID);
-            ((TVShow)arg).numEpisodes = ShowInfoGetter.getNumEpisodes(tvdbID);
-            ((TVShow)arg).rate(ShowInfoGetter.getRating(tvdbID));
-            System.out.println(tvdbID + " " + release + " " + numEpisodes + " " + rating + " " + posterURL);
-
-        } catch (IOException | ShowNotFoundException e) {
-            e.printStackTrace();
-        }
+    public String getPosterURL() {
+        return posterURL;
     }
+
+    public int getNumEpisodes() {
+        return numEpisodes;
+    }
+
+    public long getTvdbID() {
+        return tvdbID;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+
+
 }

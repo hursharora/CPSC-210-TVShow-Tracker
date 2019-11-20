@@ -15,7 +15,7 @@ public class TVShowRequester extends HttpRequester {
 
     //EFFECTS: returns json response from TVDB of searching a tv show
     public String searchShow(String query) throws IOException, ShowNotFoundException {
-        String urlReadyQuery = query.replaceAll("\\s+", "+");
+        String urlReadyQuery = query.replaceAll("\\s+", "%20");
         return super.makeHttpRequest("https://api.thetvdb.com/search/series?name=" + urlReadyQuery);
 
     }

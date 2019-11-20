@@ -91,10 +91,6 @@ class TVShowTest {
         assertTrue(show3.isWatched());
     }
 
-    @Test
-    void testUpdate() {
-        show4.update(null, show4);
-    }
 
 
 }

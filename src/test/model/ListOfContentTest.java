@@ -77,15 +77,6 @@ public class ListOfContentTest {
         assertEquals(listOfTVShows.size(), testList.size());
     }
 
-    @Test
-    public void testSaveLoadMovies() throws IOException, InvalidContentTypeException {
-        listOfMovies.insert(movie);
-        listOfMovies.insert(movie2);
-
-        listOfMovies.save(ListOfContent.MOVIE);
-        testList.load(ListOfContent.MOVIE);
-        assertEquals(listOfMovies.size(), testList.size());
-    }
 
     @Test
     public void testSaveExpectNoInvalidContentException() {

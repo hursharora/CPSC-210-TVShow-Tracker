@@ -8,7 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.StringJoiner;
 
 //Represents a list of TV Shows
 public class ListOfContent extends ListOfContentScannerInput implements Loadable, Saveable {
@@ -40,7 +42,14 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
         Path path = getPath(type);
         List<String> loadedList = Files.readAllLines(path);
         for (String s : loadedList) {
-            listOfContent.add(ContentFactory.getContent(type, s));
+            String[] params = s.split("_");
+            String title = params[0];
+            String release = params[1];
+            int rating = Integer.parseInt(params[2]);
+            long tvdbID = Long.parseLong(params[3]);
+            int numEpisodes = Integer.parseInt(params[4]);
+            String posterUrl = params[5];
+            listOfContent.add(new TVShow(title, release, rating, tvdbID, numEpisodes, posterUrl));
         }
 
     }
@@ -50,12 +59,20 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
     //EFFECTS: saves TVShows/movies to save file from List
     public void save(String type) throws IOException, InvalidContentTypeException {
         Path path = getPath(type);
-        StringBuilder toWrite = new StringBuilder();
+        StringBuilder toSave = new StringBuilder();
         for (Content content: listOfContent) {
-            toWrite.append(content.getTitle());
-            toWrite.append(System.lineSeparator());
+            StringJoiner toWrite = new StringJoiner("_");
+            TVShow t = (TVShow)content;
+            toWrite.add(t.getTitle());
+            toWrite.add(t.getReleaseDate());
+            toWrite.add(Integer.toString(t.getRating()));
+            toWrite.add(Long.toString(t.getTvdbID()));
+            toWrite.add(Integer.toString(t.getNumEpisodes()));
+            toWrite.add(t.getPosterURL());
+            toSave.append(toWrite.toString());
+            toSave.append(System.lineSeparator());
         }
-        Files.write(path, toWrite.toString().getBytes());
+        Files.write(path, toSave.toString().getBytes());
     }
 
     private Path getPath(String type) throws InvalidContentTypeException {
@@ -71,4 +88,8 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
     }
 
 
+    @Override
+    public Iterator<Content> iterator() {
+        return listOfContent.iterator();
+    }
 }
