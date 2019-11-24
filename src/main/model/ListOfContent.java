@@ -29,11 +29,6 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
     }
 
 
-    public Content getContent(int index) {
-        return listOfContent.get(index);
-    }
-
-
     @Override
     //REQUIRES: TVShow save file and given type must be "Movie" or "TVShow"
     //MODIFIES: this
@@ -90,8 +85,6 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
     public void removeContent(Content c) {
         listOfContent.remove(c);
     }
-
-
 
     @Override
     public Iterator<Content> iterator() {

@@ -78,14 +78,6 @@ public class TVShow extends Content {
         return episodes.get(s);
     }
 
-    public void addSeason(Season season) {
-        episodes.put(season, new ArrayList<>());
-    }
-
-    public void addEpisode(Season season, Episode episode) {
-        List<Content> seasonList = episodes.get(season);
-        seasonList.add(episode);
-    }
 
     public String getPosterURL() {
         return posterURL;

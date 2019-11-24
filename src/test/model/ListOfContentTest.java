@@ -38,10 +38,14 @@ public class ListOfContentTest {
     }
 
     @Test
-    public void testInsertOne() {
+    public void testInsertOneThenRemove() {
         listOfTVShows.insert(show);
 
         assertTrue(listOfTVShows.contains(show));
+
+        listOfTVShows.removeContent(show);
+
+        assertEquals(listOfTVShows.size(), 0);
     }
 
     @Test
