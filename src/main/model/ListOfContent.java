@@ -87,6 +87,11 @@ public class ListOfContent extends ListOfContentScannerInput implements Loadable
         return path;
     }
 
+    public void removeContent(Content c) {
+        listOfContent.remove(c);
+    }
+
+
 
     @Override
     public Iterator<Content> iterator() {

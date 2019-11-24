@@ -3,8 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,15 +37,6 @@ class TVShowTest {
         assertEquals(show.getTitle(), TESTSHOW2);
     }
 
-    @Test
-    void testHashMap() {
-        Season testSeason = new Season(1);
-        show.addSeason(testSeason);
-        show.addEpisode(testSeason, new Episode("Pilot"));
-        List<Content> retrievedEpisode = show.getEpisodes(testSeason);
-        assertEquals(1, retrievedEpisode.size());
-        assertEquals("Pilot", retrievedEpisode.get(0).title);
-    }
 
     @Test
     void testRateUpperEdgeBound() {

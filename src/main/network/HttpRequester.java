@@ -11,12 +11,13 @@ import model.exceptions.ShowNotFoundException;
 
 public class HttpRequester {
 
+    //EFFECTS: makes httpRequest to given url(string) and returns json response
     public String makeHttpRequest(String url) throws IOException, ShowNotFoundException {
         return makeHttpRequest(new URL(url));
     }
 
-
     protected String makeHttpRequest(URL url) throws IOException, ShowNotFoundException {
+        //System.out.println(url);
         String jsonResponse = "";
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;

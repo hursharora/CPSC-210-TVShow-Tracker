@@ -1,11 +1,10 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Observable;
 
 public class Season extends Content {
+
+
     private int seasonNumber;
 
     @Override
@@ -27,6 +26,10 @@ public class Season extends Content {
 
     public Season(int seasonNumber) {
         this.seasonNumber = seasonNumber;
+    }
+
+    public int getSeasonNumber() {
+        return seasonNumber;
     }
 
 

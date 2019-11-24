@@ -11,6 +11,8 @@ public class Genre {
         this.genre = genre;
     }
 
+    //MODIFIES: this, c
+    //EFFECTS: adds content to genre and genre to content
     public void addContent(Content c) {
         if (!listOfContent.contains(c)) {
             listOfContent.add(c);
@@ -19,6 +21,9 @@ public class Genre {
 
     }
 
+
+    //MODIFIES: this, c
+    //EFFECTS: removes content from genre and genre from content
     public void removeContent(Content c) {
         if (listOfContent.contains(c)) {
             listOfContent.remove(c);

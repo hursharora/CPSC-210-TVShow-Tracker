@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -29,6 +30,8 @@ public class Controller {
     @FXML TextField searchTextField;
     @FXML Button searchButton;
 
+    //MODIFIES: this
+    //EFFECTS: gets the text from the search field and calls search function, makes search result window
     public void search() {
         String searchQuery = searchTextField.getText();
         try {
@@ -39,7 +42,9 @@ public class Controller {
 
             stage.setTitle("Search Result");
             stage.setResizable(false);
-            stage.setScene(new Scene(root, 450, 470));
+            Scene mainScene = new Scene(root, 450, 470);
+            mainScene.getStylesheets().add("ui/styles.css");
+            stage.setScene(mainScene);
             stage.show();
         } catch (IOException | ShowNotFoundException e) {
             e.printStackTrace(); //TODO display window showing error or show not found
@@ -104,6 +109,7 @@ public class Controller {
         showInfo = showInfo.replaceAll("rate", Integer.toString(queryResult.getRating()));
         showInfo = showInfo.replaceAll("id", Long.toString(queryResult.getTvdbID()));
         Text showInfoText = new Text(showInfo);
+        showInfoText.setFill(Color.WHITE);
         GridPane.setConstraints(showInfoText, 1, 2);
         showInfoText.setFont(new Font(15));
         return showInfoText;
@@ -112,6 +118,7 @@ public class Controller {
     private Text getQuestionText(TVShow queryResult) {
         String questionText = "Would you like to add x to your watch list?".replaceAll("x", queryResult.getTitle());
         Text addQuestionText = new Text(questionText);
+        addQuestionText.setFill(Color.WHITE);
         addQuestionText.setFont(new Font(20));
         addQuestionText.setWrappingWidth(400);
         GridPane.setConstraints(addQuestionText, 0, 1);
@@ -150,4 +157,6 @@ public class Controller {
         root.setVgap(10);
         return root;
     }
+
+
 }
