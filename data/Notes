@@ -1,8 +1,0 @@
-Deliverable 9:
-
--Removed path duplication in save() and load() in listOFContent
--Used content factory to further remove duplication: get movie tv input is only two lines now.
--ListOfContent: good cohesion, all methods related to ListOfContent
--Content: good cohesion
--Possible violation of liskov in toggle watched - TVshow
--Tv show mark as watched should mark episodes as watched
